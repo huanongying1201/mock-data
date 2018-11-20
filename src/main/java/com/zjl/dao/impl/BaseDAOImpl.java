@@ -3,6 +3,7 @@ package com.zjl.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import com.zjl.dao.IBaseDAO;
 import com.zjl.jdbc.JDBCHelper;
 import com.zjl.util.MyUtils;
@@ -11,20 +12,22 @@ public class BaseDAOImpl implements IBaseDAO {
 
 	public void insertBatch(String tableName, List<Map<String, Object>> records) {
 		Map<String, Object> row = records.get(0);
-		String fields = "";
-		String questions = "";
+		StringBuilder fields = new StringBuilder();
+		StringBuilder questions = new StringBuilder();
 		for(String field : row.keySet()) {
-			fields += field + ",";
-			questions += "?,";
+			fields.append(field).append(",");
+			questions.append("?,");
 		}
-		fields = MyUtils.trimComma(fields , ",");
-		questions = MyUtils.trimComma(questions , ",");
-		String sql = "INSERT INTO "+ tableName + "(" + fields +") VALUES(" + questions + ")";
+		String fieldsStr = fields.toString();
+		fieldsStr = MyUtils.trimComma(fieldsStr , ",");
+		String questionsStr = questions.toString();
+		questionsStr = MyUtils.trimComma(questionsStr , ",");
+		String sql = "INSERT INTO "+ tableName + "(" + fieldsStr +") VALUES(" + questionsStr + ")";
 		List<Object[]> paramsList = new ArrayList<Object[]>();
 		for(Map<String, Object> record : records) {
 			List<Object> params = new ArrayList<Object>();
-			for(Object key : record.keySet()) {
-				params.add(record.get(key));
+			for (Entry<String, Object> entry : record.entrySet()) {
+				params.add(entry.getValue());
 			}
 			paramsList.add(params.toArray());
 		}

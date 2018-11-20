@@ -12,6 +12,7 @@ import com.zjl.exception.MyException;
  */
 public class MyUtils {
 	
+	private MyUtils() {}
 	/**
 	 * 截断字符串两侧的分隔符
 	 * @param str 字符串

@@ -17,6 +17,7 @@ import java.util.Properties;
  */
 public class ConfigurationManager {
 	
+	private ConfigurationManager() {}
 	// Properties对象使用private来修饰，就代表了其是类私有的
 	// 那么外界的代码，就不能直接通过ConfigurationManager.prop这种方式获取到Properties对象
 	// 之所以这么做，是为了避免外界的代码不小心错误的更新了Properties中某个key对应的value
