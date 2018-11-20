@@ -112,7 +112,7 @@ public class JDBCHelper {
 	 * 
 	 */
 	public synchronized Connection getConnection() {
-		while(datasource.size() == 0) {
+		while(datasource.isEmpty()) {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
